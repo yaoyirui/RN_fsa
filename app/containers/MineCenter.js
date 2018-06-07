@@ -6,7 +6,7 @@ import {StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ToastAndroi
 import {connect} from 'react-redux'
 import {createAction} from '../utils'
 import {NavigationActions} from '../utils'
-import {runAfterInteractionsWithToast} from "../utils/interactionManagerUtils";
+import {runAfterInteractionsWithToast, runAfterInteractionsBasic} from "../utils/interactionManagerUtils";
 
 var width = Dimensions.get('window').width;
 
@@ -91,7 +91,7 @@ class MineCenter extends PureComponent {
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => {
-            runAfterInteractionsWithToast(() => {
+            runAfterInteractionsBasic(() => {
               this.props.dispatch(createAction('app/clearCache')())
               ToastAndroid.show('清除缓存成功', ToastAndroid.SHORT);
             })

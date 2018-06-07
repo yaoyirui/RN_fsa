@@ -74,6 +74,7 @@ class NewInstall extends PureComponent {
       this.refs.textInputStb.blur();
     } catch (e) {
     }
+    console.log(this.state.smartCardNumber + ':' + this.props.smartCardNumber);
     if (!this.state.smartCardNumber && !this.props.smartCardNumber) {
       ToastAndroid.show('请输入智能卡号', ToastAndroid.SHORT);
       return;
@@ -149,7 +150,8 @@ class NewInstall extends PureComponent {
   }
 
 
-  onCodeEndEdit = () => {
+  onCodeEndEdit = (type) => {
+    const {dispatch, smartCardNumber, stbNumber} = this.props;
     let scObj = null;
     let stbObj = null;
     const resources = [];
@@ -161,12 +163,18 @@ class NewInstall extends PureComponent {
       stbObj = {resourceTypeId: 2, resourceNum: this.state.stbNumber}
       resources.push(stbObj)
     }
-    this.props.dispatch(createAction('newInstall/setResources')({
+    dispatch(createAction('newInstall/setResources')({
       resources
     }))
+    dispatch(createAction('newInstall/confirmNumber')({
+      smartCardNumber: type === 1 ? this.state.smartCardNumber : smartCardNumber,
+      stbNumber: type === 2 ? this.state.stbNumber : stbNumber
+    }));
   }
 
   dispatchToBarcode = (type) => {
+    this.refs.textInputStb.blur();
+    this.refs.textInputSmartCard.blur();
     this.props.dispatch(NavigationActions.navigate({routeName: 'BarcodeTest', params: {type}}));
   }
 
@@ -212,7 +220,7 @@ class NewInstall extends PureComponent {
                 defaultValue={smartCardNumber}
                 onChangeText={(text) => this.setState({'smartCardNumber': text})}
                 onEndEditing={() => {
-                  this.onCodeEndEdit()
+                  this.onCodeEndEdit(1)
                 }}
               />
             </View>
@@ -239,7 +247,7 @@ class NewInstall extends PureComponent {
                 defaultValue={stbNumber}
                 onChangeText={(text) => this.setState({'stbNumber': text})}
                 onEndEditing={() => {
-                  this.onCodeEndEdit()
+                  this.onCodeEndEdit(2)
                 }}
               />
             </View>
@@ -269,7 +277,7 @@ class NewInstall extends PureComponent {
               defaultValue={smartCardNumber}
               onChangeText={(text) => this.setState({'smartCardNumber': text})}
               onEndEditing={() => {
-                this.onCodeEndEdit()
+                this.onCodeEndEdit(1)
               }}
             />
           </View>
@@ -296,7 +304,7 @@ class NewInstall extends PureComponent {
               defaultValue={stbNumber}
               onChangeText={(text) => this.setState({'stbNumber': text})}
               onEndEditing={() => {
-                this.onCodeEndEdit()
+                this.onCodeEndEdit(2)
               }}
             />
           </View>

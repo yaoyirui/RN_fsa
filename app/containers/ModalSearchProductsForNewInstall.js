@@ -236,7 +236,7 @@ class ModalSearchProductsForNewInstall extends PureComponent {
     }}/>
   }
 
-  _keyExtractor = (item, index) => item.productId;
+  _keyExtractor = (item, index) => item.productId + '';
 
   renderProductDetail = (product) => {
     if (product.openDetail) {

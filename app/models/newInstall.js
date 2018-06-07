@@ -225,7 +225,9 @@ export default {
         currentResourceTypeId: 1,
         choosePhysicProduct: {},
         showChoosenPhysicProducts: false,
-        showChoosePhysicProductModal: false
+        showChoosePhysicProductModal: false,
+        smartCardNumber: '',
+        stbNumber: ''
       }
     },
     changeActualAmount(state, {payload}) {
@@ -755,7 +757,7 @@ export default {
       }
     },
     * queryCanBeOrderServiceProductsForPage({payload}, {call, put, select}) {
-      const products = yield select(({product}) => product.products);
+      const products = yield select(({newInstall}) => newInstall.products);
       const sessionId = yield select(({app}) => app.sessionId);
       const customerId = yield select(({customer}) => customer.customerDetail.id);
       const {newInstallBasicInfo, chooseSubscriberType, chooseSubsdiaryType} = yield select(({newInstall}) => newInstall);

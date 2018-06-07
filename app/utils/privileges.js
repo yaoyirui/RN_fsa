@@ -1,6 +1,3 @@
-import EquipSale from "../containers/EquipSale";
-import PaymentAmountOnDemand from "../containers/PaymentAmountOnDemand";
-
 /**
  * Created by yaoyirui on 2017/10/20.
  */

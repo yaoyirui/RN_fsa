@@ -96,7 +96,7 @@ export default {
     },
     * queryHomePageInfoEffect({payload}, {call, put, select}) {
       const sessionId = yield select(({app}) => app.sessionId);
-      const homePageInfo = yield call(authService.queryHomePageInfo, {...payload, sessionId: sessionId})
+      const homePageInfo = yield call(authService.queryHomePageInfo, {...payload, sessionId})
       if (homePageInfo.success) {
         yield put(createAction('queryHomePageInfo')({
           homePageInfo: homePageInfo.jsonData
@@ -105,7 +105,7 @@ export default {
     },
     * logout({payload}, {call, put, select}) {
       const sessionId = yield select(({app}) => app.sessionId);
-      yield call(authService.logout, {sessionId: sessionId});
+      yield call(authService.logout, {sessionId});
       NavigationActions.reset({
         index: 0,
         actions: [NavigationActions.navigate({routeName: 'Login'})],
@@ -113,7 +113,7 @@ export default {
     },
     * resetPwd({payload}, {call, put, select}) {
       const sessionId = yield select(({app}) => app.sessionId);
-      const returnData = yield call(authService.resetPwd, {...payload, sessionId: sessionId});
+      const returnData = yield call(authService.resetPwd, {...payload, sessionId});
       if (returnData.success) {
         yield put(createAction('showSuccess')())
       } else {
